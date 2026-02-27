@@ -286,6 +286,21 @@
               "parameterType": "formBinaryData",
               "name": "files",
               "inputDataFieldName": "index.html"
+            },
+            {
+              "parameterType": "formData",
+              "name": "preferCssPageSize",
+              "value": "true"
+            },
+            {
+              "parameterType": "formData",
+              "name": "printBackground",
+              "value": "true"
+            },
+            {
+              "parameterType": "formData",
+              "name": "generateDocumentOutline",
+              "value": "true"
             }
           ]
         },
