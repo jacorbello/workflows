@@ -193,7 +193,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer ${XAI_API_KEY}"
+              "value": "Bearer {{XAI_API_KEY}}"
             },
             {
               "name": "Content-Type",
@@ -278,7 +278,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://192.168.1.91:30300/forms/chromium/convert/html",
+        "url": "{{GOTENBERG_URL}}/forms/chromium/convert/html",
         "sendBody": true,
         "contentType": "multipart-form-data",
         "bodyParameters": {
@@ -375,7 +375,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://192.168.1.91:30080/webhook/cal-prospects",
+        "url": "{{WEBHOOK_URL}}/webhook/cal-prospects",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ source: 'n8n-cal-prospects-v6', timestamp: $now.toISO(), prospects: $('Prepare PDF Attachment').first().json.prospects, summary: $('Prepare PDF Attachment').first().json.summary, hasHighPriority: $('Prepare PDF Attachment').first().json.hasHighPriority, workflow_execution_id: $execution.id }) }}",

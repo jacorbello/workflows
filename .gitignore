@@ -3,6 +3,9 @@
 credentials/
 secrets/
 
+# Generated workflow files (contain secrets)
+*.local.json
+
 # OS
 .DS_Store
 Thumbs.db
