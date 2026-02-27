@@ -1,4 +1,4 @@
-# CAL x.com Prospects (x_search v6)
+# CAL x.com Prospects (x_search v7)
 
 Constitutional law prospect scanner that searches X/Twitter for potential case leads.
 
@@ -8,12 +8,29 @@ Runs daily at **8 AM** and **3 PM CST**.
 
 ## Pipeline
 
-1. **Build xAI Prompt** — 6 keyword + 6 semantic searches targeting civil rights violations, police misconduct, CPS cases, family court issues
-2. **xAI x_search API** — Grok `grok-4-1-fast-reasoning` with `x_search` tool (72-hour window)
-3. **Extract Prospects** — Parses JSON results with annotation fallback, cross-run deduplication via n8n static data (7-day window)
-4. **Validate & Score** — URL validation, fake handle detection, configurable viability scoring (0-100)
-5. **Build Email & PDF** — Editorial Intelligence styled templates: table-based email (Outlook/Gmail safe) + Gotenberg PDF report with HTML escaping on all user content
-6. **Send** — Email via Resend API (with plain-text fallback) + webhook backup. Error handling on all HTTP nodes (`continueRegularOutput`).
+1. **Search Config v7** — Configurable search categories and time window (see [Search Configuration](#search-configuration) below)
+2. **Build xAI Prompt** — Assembles keyword + semantic search pairs from enabled categories (up to 14 searches when all enabled)
+3. **xAI x_search API** — Grok `grok-4-1-fast-reasoning` with `x_search` tool
+4. **Extract Prospects** — Parses JSON results with annotation fallback, cross-run deduplication via n8n static data (7-day window)
+5. **Validate & Score** — URL validation, fake handle detection, configurable viability scoring (0-100)
+6. **Build Email & PDF** — Editorial Intelligence styled templates: table-based email (Outlook/Gmail safe) + Gotenberg PDF report with HTML escaping on all user content
+7. **Send** — Email via Resend API (with plain-text fallback) + webhook backup. Error handling on all HTTP nodes (`continueRegularOutput`).
+
+## Search Configuration
+
+The **Search Config v7** node provides toggleable search categories and a configurable time window. Each enabled category generates one keyword search and one semantic search.
+
+| Category | Toggle | Description |
+|----------|--------|-------------|
+| Police Encounters | `policeEncounters` | Unlawful arrests, excessive force, rights violations during stops |
+| CPS / Parental Rights | `cpsParentalRights` | CPS overreach, parental rights termination, family court issues |
+| Police Misconduct | `policeMisconduct` | Officer complaints, cover-ups, department accountability |
+| Civil Rights General | `civilRightsGeneral` | Discrimination, due process violations, broad civil rights issues |
+| First Amendment | `firstAmendment` | Speech restrictions, protest crackdowns, press freedom violations |
+
+**Time window:** `timeWindowHours` (default: **72** hours) — controls how far back x_search looks for posts.
+
+All categories are **enabled by default**. With all 5 categories on, the prompt assembles **14 total searches** (7 keyword + 7 semantic, including 2 bonus keyword searches for high-value categories).
 
 ## Recipients
 
@@ -41,6 +58,7 @@ Scoring weights are configurable via the `SCORING` config object in the Validate
 
 Changes from the v6 audit (`docs/audits/2026-02-27-cal-prospects-v6-audit.md`):
 
+- **Search Config node** — dedicated `Search Config v7` Set node with toggleable search categories (5 categories, 14 searches when all enabled) and configurable `timeWindowHours`
 - **Config extraction** — scoring weights, recipients, sender, model name extracted to config objects
 - **HTML escaping** — all user content (tweet text, usernames, etc.) escaped to prevent XSS
 - **Cross-run dedup** — prospects deduplicated across runs via `$getWorkflowStaticData`, 7-day expiry
