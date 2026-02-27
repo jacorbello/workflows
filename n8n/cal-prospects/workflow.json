@@ -18,6 +18,17 @@
       "main": [
         [
           {
+            "node": "Search Config v7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Config v7": {
+      "main": [
+        [
+          {
             "node": "Build xAI Prompt v6",
             "type": "main",
             "index": 0
@@ -170,6 +181,59 @@
       ],
       "id": "schedule-trigger",
       "name": "8 AM & 3 PM CST"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "time-window",
+              "name": "timeWindowHours",
+              "value": 72,
+              "type": "number"
+            },
+            {
+              "id": "police-encounters",
+              "name": "policeEncounters",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "cps-parental-rights",
+              "name": "cpsParentalRights",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "police-misconduct",
+              "name": "policeMisconduct",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "civil-rights-general",
+              "name": "civilRightsGeneral",
+              "value": true,
+              "type": "boolean"
+            },
+            {
+              "id": "first-amendment",
+              "name": "firstAmendment",
+              "value": true,
+              "type": "boolean"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        496
+      ],
+      "id": "search-config-v7",
+      "name": "Search Config v7"
     },
     {
       "parameters": {
